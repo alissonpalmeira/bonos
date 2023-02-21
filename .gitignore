@@ -3,9 +3,9 @@
 .aws-sam
 
 # nodejs
-/build
-/node_modules
-/.yarn
+build
+node_modules
+.yarn
 yarn.lock
 package-lock.json
 
