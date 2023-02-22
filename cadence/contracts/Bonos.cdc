@@ -1,15 +1,10 @@
  
 pub contract Bonos {
-    
-    // pub struct VoucherInfo {
-    //     pub let issuer: Address
-    //     pub let amount: UFix64
+    pub let PouchStoragePath: StoragePath
+    pub let PouchPrivatePath: PrivatePath
+    pub let PouchPublicPath: PublicPath
 
-    //     init(issuer: Address, amount: UFix64) {
-    //         self.issuer = issuer
-    //         self.amount = amount
-    //     }
-    // }
+    pub let initialBalance: UFix64
 
     pub resource interface Provider {
         pub fun withdraw(amount: UFix64, issuer: Address): @Pouch
@@ -19,11 +14,8 @@ pub contract Bonos {
         pub fun deposit(from: @Pouch)
     }
 
-    pub resource interface Balance {
-        // The total balance of balance of the Pouch
-        // pub var balance: UFix64
-        
-        // The total balance of balance per issuer of the Pouch
+    pub resource interface Balance {     
+        // The total balance per issuer of the Pouch
         // key: issuer's Address
         // value: amount
         pub let balance: {Address: UFix64}
@@ -36,8 +28,6 @@ pub contract Bonos {
     }
 
     pub resource Pouch: Provider, Receiver, Balance {
-        // pub var balance: UFix64
-
         pub let balance: {Address: UFix64}
 
         init(balance: UFix64, issuer: Address){
@@ -74,17 +64,15 @@ pub contract Bonos {
         }
     }
 
-
-    pub fun createPouch(balance: UFix64, issuer: Address): @Pouch {
-        return <-create Pouch(balance: balance, issuer: issuer)
+    pub fun createPouch(account: AuthAccount): @Pouch {
+        return <- create Pouch(balance: self.initialBalance, issuer: account.address)
     }
 
-    //pub fun mint(amount: UFix64) {
-    //    
-    //}
-
     init() {
-        let pouch <- self.createPouch(balance: 100.0, issuer: self.account.address)
-        self.account.save(<-pouch, to: /storage/BonosPouch)
+        self.PouchStoragePath = StoragePath(identifier: "bonosPouch") ?? panic("Could not set storage path")
+        self.PouchPrivatePath = PrivatePath(identifier: "bonosPouch") ?? panic("Could not set private path")
+        self.PouchPublicPath = PublicPath(identifier: "bonosPouch") ?? panic("Could not set public path")
+
+        self.initialBalance = 100.0
     }
 }
