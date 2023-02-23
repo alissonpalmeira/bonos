@@ -8,17 +8,18 @@ flow.json
 # nodejs
 build
 node_modules
-.yarn
-yarn.lock
 package-lock.json
 
+# yarn
+.yarn
+.pnp*
 
 # misc
 .DS_Store
 .env.local
 .env.development.local
-.env.test.local
 .env.production.local
+.env.test.local
 
 # log
 npm-debug.log*

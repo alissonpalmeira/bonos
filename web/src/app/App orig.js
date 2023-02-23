@@ -1,8 +1,9 @@
 import React, { useState, useEffect } from 'react';
+import { isInstalled } from 'services/utils';
 import { usePWAInstall } from 'react-use-pwa-install';
 import * as fcl from '@onflow/fcl';
 import './App.css';
-import "./flow/config";
+import "assets/flow/config";
 
 function App() {
   const [user, setUser] = useState({loggedIn: null})
@@ -44,7 +45,7 @@ function App() {
       }
   
       <div>
-        {install && <button onClick={install}>Install</button>}
+        {!isInstalled && <button onClick={install}>Install</button>}
       </div>
     </div>
   );
