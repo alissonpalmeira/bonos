@@ -15,4 +15,26 @@ export const theme = {
             },
         },
     },
+    button: {
+        primary: {
+            color: 'white',
+        },
+    },
+    card: {
+        container: {
+            align: 'center',
+            animation: 'fadeIn',
+            background: 'white',
+            border: {
+                color: 'black',
+            },
+            gap: 'small',
+            justify: 'center',
+            height: {
+                min: 'small',
+                max: 'large',
+            },
+            pad: 'medium',
+        },
+    },
 };
