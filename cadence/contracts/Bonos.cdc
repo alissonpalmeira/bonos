@@ -1,10 +1,11 @@
  
 pub contract Bonos {
     pub let initialBalance: UFix64
+    pub let issuanceLimit: UFix64
 
-    pub let PouchStoragePath: StoragePath
-    pub let PouchPrivatePath: PrivatePath
-    pub let PouchPublicPath: PublicPath
+    pub let CaseStoragePath: StoragePath
+    pub let CasePrivatePath: PrivatePath
+    pub let CasePublicPath: PublicPath
 
     pub let WishlistStoragePath: StoragePath
     pub let WishlistPrivatePath: PrivatePath
@@ -13,11 +14,16 @@ pub contract Bonos {
     pub event ContractInitialized()
     
     init() {
-        self.initialBalance = 100.0
+        self.initialBalance = 0.0
+        self.issuanceLimit = 100.0
 
-        self.PouchStoragePath = StoragePath(identifier: "bonosPouch") ?? panic("Could not set storage path")
-        self.PouchPrivatePath = PrivatePath(identifier: "bonosPouch") ?? panic("Could not set private path")
-        self.PouchPublicPath = PublicPath(identifier: "bonosPouch") ?? panic("Could not set public path")
+        self.CaseStoragePath = StoragePath(identifier: "bonosCase") ?? panic("Could not set storage path")
+        self.CasePrivatePath = PrivatePath(identifier: "bonosCase") ?? panic("Could not set private path")
+        self.CasePublicPath = PublicPath(identifier: "bonosCase") ?? panic("Could not set public path")
+
+        self.account.save(<- Bonos.createCase(account: self.account), to: Bonos.CaseStoragePath)
+        self.account.link<&Bonos.Case{Bonos.Receiver, Bonos.Balance}>(Bonos.CasePublicPath, target: Bonos.CaseStoragePath)
+        self.account.link<&Bonos.Case>(Bonos.CasePrivatePath, target: Bonos.CaseStoragePath)
 
         self.WishlistStoragePath = StoragePath(identifier: "bonosWishlist") ?? panic("Could not set storage path")
         self.WishlistPrivatePath = PrivatePath(identifier: "bonosWishlist") ?? panic("Could not set private path")
@@ -31,18 +37,20 @@ pub contract Bonos {
     }
 
     pub resource interface Provider {
-        pub fun withdraw(amount: UFix64, issuer: Address): @Pouch
+        pub fun withdraw(amount: UFix64, issuer: Address): @Case
     }
 
     pub resource interface Receiver {
-        pub fun deposit(from: @Pouch)
+        pub fun deposit(from: @Case)
     }
 
     pub resource interface Balance {     
-        // The total balance per issuer of the Pouch
+        // The total balance per issuer of the Case
         // key: issuer's Address
         // value: amount
         pub let balance: {Address: UFix64}
+
+        pub fun getBalanceByIssuer(issuer: Address): UFix64
 
         init(balance: UFix64, issuer: Address) {
             post {
@@ -51,7 +59,7 @@ pub contract Bonos {
         }
     }
 
-    pub resource Pouch: Provider, Receiver, Balance {
+    pub resource Case: Provider, Receiver, Balance {
         pub let balance: {Address: UFix64}
 
         init(balance: UFix64, issuer: Address){
@@ -59,18 +67,18 @@ pub contract Bonos {
             self.balance[issuer] = balance
         }
 
-        pub fun withdraw(amount: UFix64, issuer: Address): @Pouch {
+        pub fun withdraw(amount: UFix64, issuer: Address): @Case {
             pre {
-                self.balance[issuer]! >= amount: "amount@issuer withdrawn must be less than or equal than the balance@issuer of the Pouch"
+                self.balance[issuer]! >= amount: "amount@issuer withdrawn must be less than or equal than the balance@issuer of the Case"
             }
             post {
-                self.balance[issuer] == before(self.balance[issuer]!) - amount: "New Pouch balance@issuer must be the difference of the previous balance@issuer and the withdrawn Pouch"
+                self.balance[issuer] == before(self.balance[issuer]!) - amount: "New Case balance@issuer must be the difference of the previous balance@issuer and the withdrawn Case"
             }
             self.balance[issuer] = self.balance[issuer]! - amount
-            return <-create Pouch(balance: amount, issuer: issuer)
+            return <-create Case(balance: amount, issuer: issuer)
         }
 
-        pub fun deposit(from: @Pouch) {
+        pub fun deposit(from: @Case) {
             // Assert that the concrete type of the deposited vault is the same
             // as the vault that is accepting the deposit
             // pre {
@@ -82,33 +90,55 @@ pub contract Bonos {
             //    }
             //}
             for issuer in from.balance.keys {
-                self.balance[issuer] = self.balance[issuer]! + from.balance[issuer]!
+                self.balance[issuer] = (self.balance[issuer] ?? 0.0)+ from.balance[issuer]!
             }
             destroy from
         }
+
+        pub fun getBalanceByIssuer(issuer: Address): UFix64 {
+            return self.balance[issuer] ?? 0.0
+        }
     }
 
-    pub fun createPouch(account: AuthAccount): @Pouch {
-        return <- create Pouch(balance: self.initialBalance, issuer: account.address)
+    pub fun createCase(account: AuthAccount): @Case {
+        return <- create Case(balance: self.initialBalance, issuer: account.address)
+    }
+
+    pub fun isIssued(issuer: Address): Bool {
+        let case = self.account.borrow<&Case>(from: self.CaseStoragePath)
+            ?? panic("Could not borrow case receiver")
+        log(issuer)
+        log(case.balance[issuer])
+        return case.balance[issuer] != nil
+    }
+
+    pub fun issue(account: AuthAccount) {
+        pre {
+            self.isIssued(issuer: account.address) == false : "can not issue again"
+        }
+
+        let tempCase <- create Case(balance: self.issuanceLimit, issuer: account.address)
+
+        let case = self.account.borrow<&Case{Receiver}>(from: self.CaseStoragePath)
+            ?? panic("Could not borrow case receiver")
+
+        case.deposit(from: <- tempCase)
     }
 
     pub resource interface WishlistPublic {
-        pub fun getWishesByAccount(account: Address): {Address: UFix64}
-        pub fun upsertWish(account: AuthAccount, amount: UFix64, issuer: Address)
-    }
-
-    pub resource interface WishlistPrivate {
-        // The total balance per issuer of the Pouch
+        // The whole wishlist
         // key: wisher's Address
         // value: 
         //     key: issuer's Address
         //     value: wished amount
         pub let wishes: {Address: {Address: UFix64}}
 
-        access(account) fun getWishes(): {Address: {Address: UFix64}}
+        pub fun getWishesByAccount(account: Address): {Address: UFix64}
+
+        pub fun upsertWish(account: AuthAccount, amount: UFix64, issuer: Address)
     }
 
-    pub resource Wishlist: WishlistPublic, WishlistPrivate {
+    pub resource Wishlist: WishlistPublic {
         pub let wishes: {Address: {Address: UFix64}}
 
         init() {
@@ -139,10 +169,12 @@ pub contract Bonos {
                 }
             }
         }
+    }
 
-        access(account) fun getWishes(): {Address: {Address: UFix64}}{
-            return self.wishes
-        }
+    pub fun borrowCase(): &{Receiver, Balance} {
+        let cap = self.account.getCapability<&Case{Receiver, Balance}>(self.CasePublicPath)
+        let case = cap.borrow() ?? panic("Could not borrow case revceiver & balance")
+        return case
     }
 
     pub fun borrowWishlist(): &{WishlistPublic} {
