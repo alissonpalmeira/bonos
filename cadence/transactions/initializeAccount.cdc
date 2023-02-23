@@ -1,4 +1,4 @@
-import Bonos from 0x01
+import Bonos from "../contracts/Bonos.cdc"
 
 transaction() {
     prepare(account: AuthAccount) {
