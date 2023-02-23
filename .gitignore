@@ -2,6 +2,9 @@
 # AWS sam build
 .aws-sam
 
+#flow
+flow.json
+
 # nodejs
 build
 node_modules
