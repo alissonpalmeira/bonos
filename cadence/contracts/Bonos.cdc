@@ -93,6 +93,11 @@ pub contract Bonos {
     }
 
     pub resource interface WishlistPublic {
+        pub fun getWishesByAccount(account: Address): {Address: UFix64}
+        pub fun upsertWish(account: AuthAccount, amount: UFix64, issuer: Address)
+    }
+
+    pub resource interface WishlistPrivate {
         // The total balance per issuer of the Pouch
         // key: wisher's Address
         // value: 
@@ -100,11 +105,6 @@ pub contract Bonos {
         //     value: wished amount
         pub let wishes: {Address: {Address: UFix64}}
 
-        pub fun getMyWishes(account: AuthAccount): {Address: UFix64}
-        pub fun upsertWish(account: AuthAccount, amount: UFix64, issuer: Address)
-    }
-
-    pub resource interface WishlistPrivate {
         access(account) fun getWishes(): {Address: {Address: UFix64}}
     }
 
@@ -115,8 +115,8 @@ pub contract Bonos {
             self.wishes = {}
         }
 
-        pub fun getMyWishes(account: AuthAccount): {Address: UFix64} {
-            return self.wishes[account.address] ?? {}
+        pub fun getWishesByAccount(account: Address): {Address: UFix64} {
+            return self.wishes[account] ?? {}
         }
 
         pub fun upsertWish(account: AuthAccount, amount: UFix64, issuer: Address) {
@@ -129,13 +129,25 @@ pub contract Bonos {
             if amount == 0.0 {
                 self.wishes[account.address]!.remove(key: issuer)
             } else {
-                let accountWishes = &self.wishes[account.address]! as &{Address: UFix64}
-                accountWishes[issuer] = amount
+                if self.wishes[account.address] == nil {
+                    self.wishes[account.address] = { issuer: amount }
+                } else {
+                    let accountWishes = &self.wishes[account.address]! as &{Address: UFix64}
+                    if accountWishes != nil {
+                        accountWishes[issuer] = amount
+                    }
+                }
             }
         }
 
         access(account) fun getWishes(): {Address: {Address: UFix64}}{
             return self.wishes
         }
+    }
+
+    pub fun borrowWishlist(): &{WishlistPublic} {
+        let cap = self.account.getCapability<&Wishlist{WishlistPublic}>(self.WishlistPublicPath)
+        let wishlist = cap.borrow() ?? panic("Could not borrow wishlist public")
+        return wishlist
     }
 }
