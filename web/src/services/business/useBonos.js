@@ -8,8 +8,8 @@ export const useBonos = () => {
     const [ state, setState ] = useContext(BonosContext);
     const { user } = useAuth();
 
-    const checkInit = async () => {
-        const initialized = await Queries().checkIsInitialized(user.addr);
+    const checkIsInitialized = async (address) => {
+        const initialized = await Queries().checkIsInitialized(address);
         setState(state => ({...state, initialized: initialized }));
     }
 
@@ -18,7 +18,7 @@ export const useBonos = () => {
             setInitializing(true);
             const txId = await Mutations().initializeAccount();
             await fcl.tx(txId).onceSealed();
-            await checkInit();
+            await checkIsInitialized(user.addr);
             setInitializing(false);
         } catch (error) {
             console.error(error);
@@ -30,7 +30,6 @@ export const useBonos = () => {
     }
 
     return {
-        address: user.addr,
         initialized: state.initialized,
         initializing: state.initializing,
         initializeAccount,

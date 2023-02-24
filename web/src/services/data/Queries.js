@@ -8,11 +8,22 @@ export const Queries = () => {
             cadence: scripts.IS_INITIALIZED,
             args: (arg, t) => [arg(address, t.Address)],
         });
+        // console.log(res);
+        return res;
+    }
+    
+    const getWishlist = async () => {
+        const user = await fcl.currentUser.snapshot();
+        const res = await fcl.query({
+            cadence: scripts.GET_WISHLIST,
+            args: (arg, t) => [arg(user.addr, t.Address)],
+        });
         console.log(res);
         return res;
     }
 
     return {
         checkIsInitialized,
+        getWishlist,
     }
 }

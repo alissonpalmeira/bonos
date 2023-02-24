@@ -2,10 +2,11 @@ import React from 'react';
 import { AuthProvider } from 'services/auth';
 import { BonosProvider } from 'services/business';
 import { Grommet } from 'grommet';
+import { Pending } from 'components/molecules';
 import { ReactLocation, Router, Outlet } from 'react-location';
 import { routes } from './routes';
 import { theme } from './theme';
-
+import { Error } from 'components/pages';
 const location = new ReactLocation();
 
 const App = () => {
@@ -15,6 +16,11 @@ const App = () => {
                 <Router
                     routes={routes}
                     location={location}
+                    defaultErrorElement={<Error />}
+                    defaultLoaderMaxAge={60000}
+                    defaultPendingElement={<Pending />}
+                    defaultPendingMs={1000}
+                    defaultPendingMinMs={1000}
                 >
                     <BonosProvider>
                         <Outlet />

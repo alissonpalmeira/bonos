@@ -19,7 +19,7 @@ export const Initialize = () => {
                     label='Initialize Account'
                     onClick={initializeAccount}
                     primary
-                    size='large'
+                    size='medium'
                 />
 
                 <Box direction="row">

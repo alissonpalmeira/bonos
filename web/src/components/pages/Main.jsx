@@ -38,7 +38,6 @@ export const Main = () => {
                 fill={ screenSize==='small' ? true : false }
                 gap='xsmall'
                 height={{ min: 'medium', max: 'large' }}
-                // pad={{ horizontal: 'small', top: 'small' }}
                 round={ screenSize==='small' ? false : 'medium' }
                 width={ screenSize==='small' ? { min: 'small', max: 'medium' } : 'medium' }
             >

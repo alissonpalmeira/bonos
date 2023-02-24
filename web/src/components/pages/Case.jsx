@@ -15,7 +15,7 @@ export const Case = ({ paths }) => {
     });
 
     return(
-        <Box fill pad='small'>
+        <Box fill gap='medium' pad='small'>
             <NavBar paths={paths} />
 
             <Box fill align='center' justify='center' gap='large'>

@@ -14,14 +14,16 @@ export const Account = () => {
                 </Box>
 
                 <Text size='xxlarge'>Bonos</Text>
+                
                 <Text textAlign='center'>Be welcome to the circular credit system!</Text>
+                
                 <Button
                     color='primary'
                     fill='horizontal'
                     label='Sign In'
                     onClick={signIn}
                     primary
-                    size='large'
+                    size='medium'
                 />
 
                 <Box direction="row">
