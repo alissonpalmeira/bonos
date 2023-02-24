@@ -4,6 +4,7 @@
 
 #flow
 flow.json
+flowdb
 
 # nodejs
 build
@@ -14,6 +15,11 @@ package-lock.json
 .yarn
 .pnp*
 
+# log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
 # misc
 .DS_Store
 .env.local
@@ -21,18 +27,14 @@ package-lock.json
 .env.production.local
 .env.test.local
 
-# log
-npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
-
 # python bytecode files
 *.pyc
-# testing
-/coverage
 
 # python virtual environment (venv)
 *venv*
+
+# testing
+/coverage
 
 # visual Studio config file
 .vscode
