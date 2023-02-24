@@ -107,8 +107,6 @@ pub contract Bonos {
     pub fun isIssued(issuer: Address): Bool {
         let case = self.account.borrow<&Case>(from: self.CaseStoragePath)
             ?? panic("Could not borrow case receiver")
-        log(issuer)
-        log(case.balance[issuer])
         return case.balance[issuer] != nil
     }
 
