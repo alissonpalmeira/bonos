@@ -1,4 +1,7 @@
 import { Account, Case, Main } from 'components/pages';
+import { Credits, Profile, Wishlist } from 'components/organisms';
+
+const paths = [ 'Credits', 'Wishlist', 'Profile' ]
 
 export const routes = [
     {
@@ -11,7 +14,21 @@ export const routes = [
             },
             {
                 path: 'case',
-                element: <Case />,
+                element: <Case paths={paths} />,
+                children: [
+                    {
+                        path: 'credits',
+                        element: <Credits />,
+                    },
+                    {
+                        path: 'wishlist',
+                        element: <Wishlist />,
+                    },
+                    {
+                        path: 'profile',
+                        element: <Profile />,
+                    },
+                ]
             },
         ]
     }
