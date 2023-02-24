@@ -1,15 +1,13 @@
-import React, { createContext, useEffect, useState } from "react";
-import { AuthState } from ".";
+import React, { createContext, useEffect, useState } from 'react';
+import { AuthState } from '.';
 import * as fcl from '@onflow/fcl';
-import "assets/flow/config";
+import 'assets/flow/config';
 
 export const AuthContext = new createContext([{}, () => {}]);
 
 export const AuthProvider = ({ children }) => {
     const [ state, setState ] = useState({
-        user: {
-            loggedIn: null
-        },
+        user: { loggedIn: null },
         status: null,
         error: null,
         success: null,

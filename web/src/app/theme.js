@@ -3,6 +3,7 @@ export const theme = {
         colors: {
             'brand': '#45818e',
             'primary': '#f59c00',
+            'background': 'light-1',
         },
         font: {
             family: 'Roboto',
@@ -24,7 +25,7 @@ export const theme = {
         container: {
             align: 'center',
             animation: 'fadeIn',
-            background: 'white',
+            background: 'background',
             border: {
                 color: 'black',
             },

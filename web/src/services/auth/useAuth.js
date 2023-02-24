@@ -4,7 +4,7 @@ import * as fcl from '@onflow/fcl';
 
 export const useAuth = () => {
     // eslint-disable-next-line
-    const [state, setState] = useContext(AuthContext);
+    const [ state, setState ] = useContext(AuthContext);
 
     const signIn = () => {
         fcl.logIn();
@@ -12,6 +12,7 @@ export const useAuth = () => {
 
     const signOut = () => {
         fcl.unauthenticate();
+        setState(state => ({...state, user: { loggedIn: null } }));
     }
 
     const signUp = () => {

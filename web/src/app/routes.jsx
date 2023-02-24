@@ -1,4 +1,4 @@
-import { Account, Case, Main } from 'components/pages';
+import { Account, Case, Initialize, Main } from 'components/pages';
 import { Credits, Profile, Wishlist } from 'components/organisms';
 
 const paths = [ 'Credits', 'Wishlist', 'Profile' ]
@@ -11,6 +11,10 @@ export const routes = [
             {
                 path: 'account',
                 element: <Account />,
+            },
+            {
+                path: 'initialize',
+                element: <Initialize />,
             },
             {
                 path: 'case',

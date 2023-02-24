@@ -15,12 +15,12 @@ export const Case = ({ paths }) => {
     });
 
     return(
-        <Box fill>
+        <Box fill pad='small'>
+            <NavBar paths={paths} />
+
             <Box fill align='center' justify='center' gap='large'>
                 <Outlet />
             </Box>
-
-            <NavBar paths={paths} />
         </Box>
     )
 }

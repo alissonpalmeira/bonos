@@ -1,5 +1,6 @@
 import React from 'react';
 import { AuthProvider } from 'services/auth';
+import { BonosProvider } from 'services/business';
 import { Grommet } from 'grommet';
 import { ReactLocation, Router, Outlet } from 'react-location';
 import { routes } from './routes';
@@ -15,7 +16,9 @@ const App = () => {
                     routes={routes}
                     location={location}
                 >
-                    <Outlet />
+                    <BonosProvider>
+                        <Outlet />
+                    </BonosProvider>
                 </Router>
             </Grommet>
         </AuthProvider>
