@@ -8,6 +8,7 @@ export const BonosContext = new createContext([{}, () => {}]);
 export const BonosProvider = ({ children }) => {
     const [ state, setState ] = useState({
         initialized: false,
+        initializing: false,
     });
     const { user } = useAuth();
 

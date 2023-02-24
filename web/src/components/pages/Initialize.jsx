@@ -1,11 +1,12 @@
 import React from 'react';
-import { Box, Button, Card, Text } from 'grommet';
+import { Box, Button, Card, Layer, Text } from 'grommet';
+import { Pending } from 'components/molecules';
 import { useAuth } from 'services/auth';
 import { useBonos } from 'services/business';
 
 export const Initialize = () => {
     const { signOut } = useAuth();
-    const { initializeAccount } = useBonos();
+    const { initializeAccount, initializing } = useBonos();
 
     return(
         <Box background='brand' fill justify='center' pad='medium'>
@@ -31,6 +32,15 @@ export const Initialize = () => {
                     />
                 </Box>
             </Card>
+
+            {initializing && (
+                <Layer 
+                    plain
+                    responsive={false}
+               >
+                    <Pending />
+                </Layer>
+            )}
         </Box>
     )
 }
