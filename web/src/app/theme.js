@@ -4,6 +4,7 @@ export const theme = {
             'brand': '#45818e',
             'primary': '#f59c00',
             'background': 'light-1',
+            'focus': undefined,
         },
         font: {
             family: 'Roboto',

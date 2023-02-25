@@ -1,5 +1,5 @@
 
-export const GET_VOUCHERS = `
+export const GET_CREDITS = `
 import Bonos from 0xBonos
 
 pub fun main(account: Address): {Address: UFix64} {

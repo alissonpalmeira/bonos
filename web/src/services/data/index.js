@@ -1,10 +1,10 @@
 import { Mutations } from './Mutations';
 import { Queries } from './Queries';
-import { defaultVoucher, defaultWish } from './defaultData';
+import { defaultCredit, defaultWish } from './defaultData';
 
 export {
     Mutations,
     Queries,
-    defaultVoucher,
+    defaultCredit,
     defaultWish,
 }

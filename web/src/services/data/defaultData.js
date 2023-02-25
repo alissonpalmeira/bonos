@@ -1,5 +1,5 @@
 
-export const defaultVoucher = {
+export const defaultCredit = {
     amount: 0,
     issuer: '',
 };

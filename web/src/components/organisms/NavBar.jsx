@@ -31,7 +31,7 @@ export const NavBar = ({ paths, ...rest }) => {
                     color={isCurrentRoute(paths[0]) ? 'primary' : 'brand'}
                     size='medium' 
                 />
-                <Text color={isCurrentRoute(paths[0]) ? 'primary' : 'brand'} size='small'>Vouchers</Text>
+                <Text color={isCurrentRoute(paths[0]) ? 'primary' : 'brand'} size='small'>Credits</Text>
             </Box>
 
             <Box

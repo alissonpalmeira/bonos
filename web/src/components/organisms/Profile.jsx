@@ -8,7 +8,7 @@ export const Profile = () => {
     const ref = useRef();
 
     return(
-        <Box fill gap='large' ref={ref}>
+        <Box fill gap='small' ref={ref}>
             <TitleBar
                 title='My Profile'
                 // icon={<AddCircle />}

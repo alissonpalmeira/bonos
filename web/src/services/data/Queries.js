@@ -12,19 +12,14 @@ export const Queries = () => {
         return res;
     }
     
-    const getVouchers = async () => {
+    const getCredits = async () => {
         const user = await fcl.currentUser.snapshot();
         const res = await fcl.query({
-            cadence: scripts.GET_VOUCHERS,
+            cadence: scripts.GET_CREDITS,
             args: (arg, t) => [arg(user.addr, t.Address)],
         });
-        console.log(res);
-        return Object.entries(res).reduce((result, [key, value], index) => {
-            if (parseFloat(value) > 0) {
-                return {...result, [key]: value};
-            }
-            return {...result};
-        }, {})
+        // console.log(res);
+        return res;
     }
 
     const getWishlist = async () => {
@@ -39,7 +34,7 @@ export const Queries = () => {
 
     return {
         checkIsInitialized,
-        getVouchers,
+        getCredits,
         getWishlist,
     }
 }

@@ -2,7 +2,7 @@ import React, { useRef } from 'react';
 import { AddCircle } from 'grommet-icons';
 import { Box, Layer, Text } from 'grommet';
 import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
-import { TitleBar, WishCard } from 'components/molecules';
+import { TitleBar, Wish } from 'components/molecules';
 import { useBonos } from 'services/business';
 
 export const Wishlist = () => {
@@ -53,7 +53,7 @@ export const Wishlist = () => {
             :
                 <Box fill gap='xsmall' overflow={{vertical: 'auto'}}>
                     { Object.entries(wishlist).map(([key, value]) => (
-                        <WishCard 
+                        <Wish 
                             key={key}
                             info={{ alias: key }}
                             amount={parseInt(value)*100}

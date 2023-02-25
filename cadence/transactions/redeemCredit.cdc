@@ -15,3 +15,4 @@ transaction(amount: UFix64, issuer: Address) {
         self.contractCase.deposit(from: <- tempCase)
     }    
 }
+ 

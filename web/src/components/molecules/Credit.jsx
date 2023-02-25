@@ -1,15 +1,16 @@
 import React from 'react';
 import { Amount } from 'components/atoms';
 import { Avatar, Box, Button, Image, Text } from "grommet";
-import { FavoriteEmptyIcon, FavoriteFilledIcon } from 'components/atoms';
+import { Gift } from 'grommet-icons';
 
 const defaultPicture = process.env.REACT_APP_DEFAULT_PICTURE_URL
 
-export const WishCard = ({ info, amount, onEdit, onShow }) => {
+export const Credit = ({ info, amount, onEdit, onShow }) => {
     // console.log(info, amount, defaultPicture);
     
     return (
         <Box
+            background='brand'
             border={{size: 'small'}}
             direction='row'
             fill='horizontal'
@@ -39,11 +40,13 @@ export const WishCard = ({ info, amount, onEdit, onShow }) => {
             </Box>
             <Box align='center' basis='1/4'>
                 <Amount weight='bold'>{amount}</Amount>
-                <Button
-                    icon={amount > 0 ? <FavoriteFilledIcon color='dark-4' /> : <FavoriteEmptyIcon color='dark-4' />}
-                    onClick={onEdit}
-                    plain
-                />
+                { onEdit && (
+                    <Button
+                        icon={<Gift />}
+                        onClick={onEdit}
+                        plain
+                    />
+                )}
             </Box>
         </Box>
     );
