@@ -1,11 +1,13 @@
-import { Pending } from "./Pending";
-import { TitleBar } from "./TitleBar";
 import { Credit } from "./Credit";
+import { Pending } from "./Pending";
+import { ProfileBasicInfo } from "./ProfileBasicInfo";
+import { TitleBar } from "./TitleBar";
 import { Wish } from "./Wish";
 
 export {
-    Pending,
-    TitleBar,
     Credit,
+    Pending,
+    ProfileBasicInfo,
+    TitleBar,
     Wish,
 }

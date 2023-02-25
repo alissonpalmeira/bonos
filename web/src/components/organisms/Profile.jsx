@@ -1,6 +1,7 @@
 import React, { useRef } from 'react';
 import { Box, Button, Text } from 'grommet';
-import { TitleBar } from 'components/molecules';
+import { Edit } from 'grommet-icons';
+import { ProfileBasicInfo, TitleBar } from 'components/molecules';
 import { useAuth } from 'services/auth';
 
 export const Profile = () => {
@@ -11,12 +12,17 @@ export const Profile = () => {
         <Box fill gap='small' ref={ref}>
             <TitleBar
                 title='My Profile'
-                // icon={<AddCircle />}
+                icon={<Edit />}
                 // onClick={() => navigate({ to: 'insert' })}
             />
 
-            <Box fill align='center' justify='center' gap='large'>
-                <Text>{user?.addr}</Text>
+            <Box fill gap='medium'>
+                <ProfileBasicInfo
+                    name={user?.addr}
+                    bio={'Lorem ipsum dolor sit amet, consectetur adipiscing elit. In porttitor dapibus metus'}
+                    // picture={}
+                />
+
                 <Button
                     color='primary'
                     // fill='horizontal'

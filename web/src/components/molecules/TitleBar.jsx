@@ -12,6 +12,7 @@ export const TitleBar = ({ title, icon, onClick }) => {
             </Box>
 
             <Button
+                disabled={!onClick}
                 icon={icon}
                 onClick={onClick}
                 plain
