@@ -1,0 +1,108 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Template SAM para o backend do Sistema Bonos
+#######################################################################################################
+#
+#  Parameters
+#
+#######################################################################################################
+Parameters:
+  Stage:
+    Type: String
+    Default: dev
+    AllowedValues:
+      - dev
+      - prod
+  flow_host:
+    Type: String
+  flow_port:
+    Type: String
+  contract_address:
+    Type: String
+  private_key:
+    Type: String
+    NoEcho: true
+  DayFindCircleSchedule:
+    Type: String
+    Default: cron(0/10 11-01 ? * * *)
+  EveningFindCircleSchedule:
+    Type: String
+    Default: cron(15,45 01-11 ? * * *)
+#######################################################################################################
+#
+#  Globals
+#
+#######################################################################################################
+Globals:
+  Function:
+    Runtime: python3.10
+    Handler: app.lambda_handler
+    MemorySize: 128
+    Timeout: 60
+Resources:
+#######################################################################################################
+#
+#  Resources / Lambda Functions
+#
+#######################################################################################################
+  FindCirclesFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      CodeUri: functions/find_circles
+      Environment:
+        Variables:
+          HOST: !Ref flow_host
+          PORT: !Ref flow_port
+          CONTRACT_ADDRESS: !Ref contract_address
+          PRIVATE_KEY: !Ref private_key
+      Events:
+        DaySchedule:
+          Type: Schedule
+          Properties:
+            Description: Day schedule for finding circles
+            Enabled: true
+            Schedule: !Ref DayFindCircleSchedule
+        EveningSchedule:
+          Type: Schedule
+          Properties:
+            Description: Evening schedule for finding circles
+            Enabled: true
+            Schedule: !Ref EveningFindCircleSchedule      
+#######################################################################################################
+#
+#  Resources / APIs
+#
+#######################################################################################################
+
+#######################################################################################################
+#
+#  Resources / SQS
+#
+#######################################################################################################
+
+#######################################################################################################
+#
+#  Resources / S3 Buckets
+#
+#######################################################################################################
+
+#######################################################################################################
+#
+#  Resources / Database
+#
+#######################################################################################################
+
+#######################################################################################################
+#
+#  Resources / User Pool
+#
+#######################################################################################################
+ 
+#######################################################################################################
+#
+#  Outputs
+#
+#######################################################################################################
+Outputs:
+

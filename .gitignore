@@ -5,6 +5,7 @@
 #flow
 flow.json
 flowdb
+poc
 
 # nodejs
 build
