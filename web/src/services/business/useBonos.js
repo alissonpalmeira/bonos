@@ -1,7 +1,7 @@
 import { useContext } from 'react';
 import { BonosContext } from '.';
 import { useAuth } from 'services/auth';
-import { Mutations, Queries } from 'services/data';
+import { Mutations, Queries, defaultWish } from 'services/data';
 import * as fcl from '@onflow/fcl';
 
 export const useBonos = () => {
@@ -24,14 +24,29 @@ export const useBonos = () => {
             console.error(error);
         }
     }
+    const resetCurrentWish = () => {
+        setState(state => ({ ...state, currentWish: defaultWish }));
+    }
 
     const setInitializing = (value) => {
         setState(state => ({ ...state, initializing: value }));
     }
 
+    const upsertWish = async (amount, issuer) => {
+        try {
+            const txId = await Mutations().upsertWish(amount, issuer);
+            await fcl.tx(txId).onceSealed();
+        } catch (error) {
+            console.error(error);
+        }
+    }
+
     return {
+        currentWish: state.currentWish,
         initialized: state.initialized,
         initializing: state.initializing,
         initializeAccount,
+        resetCurrentWish,
+        upsertWish,
     }
 };

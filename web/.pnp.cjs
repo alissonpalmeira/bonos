@@ -37,6 +37,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-react-app", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:7.0.1"],\
             ["grommet", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:2.29.1"],\
             ["grommet-icons", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:4.9.0"],\
+            ["lodash", "npm:4.17.21"],\
             ["node-polyfill-webpack-plugin", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:2.0.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:18.2.0"],\
@@ -6474,6 +6475,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["eslint-config-react-app", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:7.0.1"],\
             ["grommet", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:2.29.1"],\
             ["grommet-icons", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:4.9.0"],\
+            ["lodash", "npm:4.17.21"],\
             ["node-polyfill-webpack-plugin", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:2.0.1"],\
             ["react", "npm:18.2.0"],\
             ["react-dom", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:18.2.0"],\

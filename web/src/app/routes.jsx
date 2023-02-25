@@ -1,5 +1,5 @@
 import { Account, Case, Initialize, Main } from 'components/pages';
-import { Credits, Profile, Wishlist } from 'components/organisms';
+import { Credits, Profile, Wishlist, WishUpsert } from 'components/organisms';
 import { Queries } from 'services/data';
 
 const paths = [ 'Credits', 'Wishlist', 'Profile' ]
@@ -31,6 +31,16 @@ export const routes = [
                         loader:  async () => ({
                             wishlist: await Queries().getWishlist(),
                         }),
+                        children: [
+                            {
+                                path: 'insert',
+                                element: <WishUpsert />,
+                            },
+                            {
+                                path: 'update',
+                                element: <WishUpsert />,
+                            },
+                        ]
                     },
                     {
                         path: 'profile',

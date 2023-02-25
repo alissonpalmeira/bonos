@@ -18,7 +18,7 @@ export const Queries = () => {
             cadence: scripts.GET_WISHLIST,
             args: (arg, t) => [arg(user.addr, t.Address)],
         });
-        console.log(res);
+        // console.log(res);
         return res;
     }
 

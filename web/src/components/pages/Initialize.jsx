@@ -26,6 +26,7 @@ export const Initialize = () => {
                     <Text>Don't want to join?&nbsp;</Text>
                     <Button
                         color='primary'
+                        disabled={initializing}
                         label='Sign Out'
                         onClick={signOut}
                         plain
@@ -37,7 +38,7 @@ export const Initialize = () => {
                 <Layer 
                     plain
                     responsive={false}
-               >
+                >
                     <Pending />
                 </Layer>
             )}

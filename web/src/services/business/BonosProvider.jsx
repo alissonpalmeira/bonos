@@ -1,5 +1,5 @@
 import React, { createContext, useEffect, useState } from "react";
-import { Queries } from "services/data";
+import { Queries, defaultWish } from "services/data";
 import { useAuth } from "services/auth";
 import "assets/flow/config";
 
@@ -9,6 +9,7 @@ export const BonosProvider = ({ children }) => {
     const [ state, setState ] = useState({
         initialized: false,
         initializing: false,
+        currentWish: defaultWish,
     });
     const { user } = useAuth();
 
