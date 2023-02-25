@@ -256,4 +256,3 @@ pub contract Bonos {
         return wishlist
     }
 }
- 
