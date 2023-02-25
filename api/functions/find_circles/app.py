@@ -1,6 +1,6 @@
 import asyncio
 import json
-from lib.flow import read_edges
+from lib.flow import exchange, read_edges
 from lib.graph import find_circles
 
 def lambda_handler(event, context):
@@ -16,7 +16,9 @@ async def _worker():
     try:
         edges = await read_edges()
         circles = find_circles(edges)
-        #TODO send transaction
+        for circle in circles:
+            await exchange(circle)
         return json.dumps({'circles': circles})
     except Exception as e:
         print(e)
+ 
