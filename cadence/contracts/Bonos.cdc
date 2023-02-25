@@ -110,6 +110,26 @@ pub contract Bonos {
         return case.balance[issuer] != nil
     }
 
+
+    acc fun exchange([{demander: Address, issuer: Address, amount: UFix64}]) {
+        let case = self.account.borrow<&Case>(from: self.CaseStoragePath)
+            ?? panic("Could not borrow case receiver")
+        let balance = (case.balance[issuer] ?? 0.0) - amount
+        
+        if balance <= 0.0 {
+            self.wishes[account.address]!.remove(key: issuer)
+        } else {
+            if self.wishes[account.address] == nil {
+                self.wishes[account.address] = { issuer: amount }
+            } else {
+                let accountWishes = &self.wishes[account.address]! as &{Address: UFix64}
+                if accountWishes != nil {
+                    accountWishes[issuer] = amount
+                }
+            }
+        }
+    }
+
     pub fun issue(account: AuthAccount) {
         pre {
             self.isIssued(issuer: account.address) == false : "can not issue again"
@@ -167,6 +187,7 @@ pub contract Bonos {
                 }
             }
         }
+
     }
 
     pub fun borrowCase(): &{Receiver, Balance} {
@@ -181,3 +202,4 @@ pub contract Bonos {
         return wishlist
     }
 }
+ 
