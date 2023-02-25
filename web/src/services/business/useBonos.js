@@ -1,4 +1,4 @@
-import { useContext } from 'react';
+import { useCallback, useContext } from 'react';
 import { BonosContext } from '.';
 import { useAuth } from 'services/auth';
 import { Mutations, Queries, defaultWish } from 'services/data';
@@ -24,8 +24,12 @@ export const useBonos = () => {
             console.error(error);
         }
     }
-    const resetCurrentWish = () => {
+    const resetCurrentWish = useCallback(() => {
         setState(state => ({ ...state, currentWish: defaultWish }));
+    }, [setState])
+
+    const setCurrentWish = (amount, issuer) => {
+        setState(state => ({ ...state, currentWish: { amount: amount, issuer: issuer} }));
     }
 
     const setInitializing = (value) => {
@@ -47,6 +51,7 @@ export const useBonos = () => {
         initializing: state.initializing,
         initializeAccount,
         resetCurrentWish,
+        setCurrentWish,
         upsertWish,
     }
 };

@@ -33,11 +33,11 @@ export const routes = [
                         }),
                         children: [
                             {
-                                path: 'insert',
+                                path: 'add',
                                 element: <WishUpsert />,
                             },
                             {
-                                path: 'update',
+                                path: 'edit',
                                 element: <WishUpsert />,
                             },
                         ]
