@@ -1,7 +1,8 @@
 import React, { useRef } from 'react';
 import { AddCircle } from 'grommet-icons';
-import { Box, Button, Layer, Text } from 'grommet';
+import { Box, Text, Layer } from 'grommet';
 import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
+import { TitleBar } from 'components/molecules';
 import { useBonos } from 'services/business';
 
 export const Wishlist = () => {
@@ -19,16 +20,14 @@ export const Wishlist = () => {
 
     return(
         <Box fill gap='large' ref={ref}>
-            <Box align='center' direction='row' fill='horizontal' flex={false} gap='medium' justify='between'>
-                <Box fill='horizontal'>
-                    <Text size='large' weight='bold'>My Wishlist</Text>
-                </Box>
+            <TitleBar
+                title='My Wishlist'
+                icon={<AddCircle />}
+                onClick={() => navigate({ to: 'insert' })}
+            />
 
-                <Button
-                    icon={<AddCircle />}
-                    onClick={() => navigate({ to: 'insert' })}
-                    plain
-                />
+            <Box align='center' fill gap='small' justify='center'>
+                <Text size='medium' textAlign='center'>{'Tap the add button above to add wishes ;)'}</Text>
             </Box>
 
             <MatchRoute to='insert'>
@@ -43,7 +42,6 @@ export const Wishlist = () => {
                     <Outlet />
                 </Layer>
             </MatchRoute>
-
         </Box>
     )
 }
