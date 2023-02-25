@@ -229,7 +229,12 @@ pub contract Bonos {
                 let tempCase <- contractCase.withdraw(amount: amount, issuer: provider)
                 providerCase.deposit(from: <- tempCase)
                 
-                receivertWishes[provider] = receiverWishToProvider - amount
+                if (receiverWishToProvider - amount == 0.0){
+                    receivertWishes.remove(key: provider)
+                }
+                else{
+                    receivertWishes[provider] = receiverWishToProvider - amount
+                }
                 
                 index = index + 1
             }
