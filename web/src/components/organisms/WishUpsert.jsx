@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AmountInputField } from 'components/atoms';
 import { Box, Button, Form, FormField, Spinner, Text, TextInput } from 'grommet';
 import { Checkmark, LinkPrevious } from 'grommet-icons';
+import { TitleBar } from 'components/molecules';
 import { isEqual } from 'lodash';
 import { useBonos } from 'services/business';
 import { useNavigate } from 'react-location';
@@ -39,19 +40,11 @@ export const WishUpsert = ({ ...rest }) => {
                 value={value}
             >
                 <Box gap='small'>
-                    <Box align='center' direction='row' fill='horizontal' flex={false} gap='medium' justify='between'>
-                        <Box fill='horizontal'>
-                            <Text size='large' weight='bold'>
-                                {currentWish?.issuer ? 'Edit' : 'Add'}&nbsp;wish
-                            </Text>
-                        </Box>
-
-                        <Button
-                            icon={processing ? <Spinner /> : <LinkPrevious />}
-                            onClick={close}
-                            plain
-                        />
-                    </Box>
+                    <TitleBar
+                        title={`${currentWish?.issuer ? 'Edit' : 'Add'} Wish`}
+                        icon={processing ? <Spinner /> : <LinkPrevious />}
+                        onClick={close}
+                    />
 
                     <Box>
                         <FormField
@@ -82,7 +75,7 @@ export const WishUpsert = ({ ...rest }) => {
                             color='primary'
                             disabled={!changed || processing}
                             fill='horizontal'
-                            icon={processing ? undefined : <Checkmark size='medium'/>}
+                            icon={<Checkmark size='medium'/>}
                             label='Confirm'
                             primary
                             size='small'
