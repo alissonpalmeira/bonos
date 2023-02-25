@@ -19,7 +19,12 @@ export const Queries = () => {
             args: (arg, t) => [arg(user.addr, t.Address)],
         });
         // console.log(res);
-        return res;
+        return Object.entries(res).reduce((result, [key, value], index) => {
+            if (parseFloat(value) > 0) {
+                return {...result, [key]: value};
+            }
+            return {...result};
+        }, {})
     }
 
     const getWishlist = async () => {
