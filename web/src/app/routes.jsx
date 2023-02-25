@@ -1,5 +1,5 @@
 import { Account, Case, Initialize, Main } from 'components/pages';
-import { Credits, Profile, Wishlist, WishUpsert } from 'components/organisms';
+import { Profile, Vouchers, Wishlist, WishUpsert } from 'components/organisms';
 import { Queries } from 'services/data';
 
 const paths = [ 'Credits', 'Wishlist', 'Profile' ]
@@ -23,7 +23,16 @@ export const routes = [
                 children: [
                     {
                         path: 'credits',
-                        element: <Credits />,
+                        element: <Vouchers />,
+                        loader:  async () => ({
+                            vouchers: await Queries().getVouchers(),
+                        }),
+                        children: [
+                            {
+                                path: 'redeem',
+                                // element: <WishUpsert />,
+                            },
+                        ]
                     },
                     {
                         path: 'wishlist',

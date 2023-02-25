@@ -1,13 +1,13 @@
-import { Credits } from './Credits';
 import { NavBar } from './NavBar';
 import { Profile } from './Profile';
+import { Vouchers } from './Vouchers';
 import { Wishlist } from './Wishlist';
 import { WishUpsert } from './WishUpsert';
 
 export {
-    Credits,
     NavBar,
     Profile,
+    Vouchers,
     Wishlist,
     WishUpsert,
 }

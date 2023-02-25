@@ -1,7 +1,7 @@
 import { useCallback, useContext } from 'react';
 import { BonosContext } from '.';
 import { useAuth } from 'services/auth';
-import { Mutations, Queries, defaultWish } from 'services/data';
+import { Mutations, Queries, defaultVoucher, defaultWish } from 'services/data';
 import * as fcl from '@onflow/fcl';
 
 export const useBonos = () => {
@@ -24,9 +24,18 @@ export const useBonos = () => {
             console.error(error);
         }
     }
+
+    const resetCurrentVoucher = useCallback(() => {
+        setState(state => ({ ...state, currentVoucher: defaultVoucher }));
+    }, [setState])
+
     const resetCurrentWish = useCallback(() => {
         setState(state => ({ ...state, currentWish: defaultWish }));
     }, [setState])
+
+    const setCurrentVoucher = (amount, issuer) => {
+        setState(state => ({ ...state, currentVoucher: { amount: amount, issuer: issuer} }));
+    }
 
     const setCurrentWish = (amount, issuer) => {
         setState(state => ({ ...state, currentWish: { amount: amount, issuer: issuer} }));
@@ -46,11 +55,14 @@ export const useBonos = () => {
     }
 
     return {
+        currentVoucher: state.currentVoucher,
         currentWish: state.currentWish,
         initialized: state.initialized,
         initializing: state.initializing,
         initializeAccount,
+        resetCurrentVoucher,
         resetCurrentWish,
+        setCurrentVoucher,
         setCurrentWish,
         upsertWish,
     }

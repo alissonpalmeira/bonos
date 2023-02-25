@@ -1,6 +1,6 @@
 import React, { useRef } from 'react';
 import { AddCircle } from 'grommet-icons';
-import { Box, Text, Layer } from 'grommet';
+import { Box, Layer, Text } from 'grommet';
 import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
 import { TitleBar, WishCard } from 'components/molecules';
 import { useBonos } from 'services/business';
