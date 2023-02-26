@@ -29,6 +29,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./",\
           "packageDependencies": [\
             ["@onflow/fcl", "npm:1.3.2"],\
+            ["@pwabuilder/pwainstall", "npm:1.6.7"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:13.5.0"],\
@@ -4071,6 +4072,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "linkType": "HARD"\
         }]\
       ]],\
+      ["@pwabuilder/pwainstall", [\
+        ["npm:1.6.7", {\
+          "packageLocation": "./.yarn/cache/@pwabuilder-pwainstall-npm-1.6.7-5d66bf6f3c-693c50816d.zip/node_modules/@pwabuilder/pwainstall/",\
+          "packageDependencies": [\
+            ["@pwabuilder/pwainstall", "npm:1.6.7"],\
+            ["lit-element", "npm:2.5.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
       ["@rollup/plugin-babel", [\
         ["npm:5.3.1", {\
           "packageLocation": "./.yarn/cache/@rollup-plugin-babel-npm-5.3.1-6039a4d033-220d71e464.zip/node_modules/@rollup/plugin-babel/",\
@@ -6467,6 +6478,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageDependencies": [\
             ["bonos", "workspace:."],\
             ["@onflow/fcl", "npm:1.3.2"],\
+            ["@pwabuilder/pwainstall", "npm:1.6.7"],\
             ["@testing-library/jest-dom", "npm:5.16.5"],\
             ["@testing-library/react", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:13.4.0"],\
             ["@testing-library/user-event", "virtual:8d2b3d92eee7009ea3d611fb8b7ed068713b62bed64df31f0b9af8da4f0bc03e80695e0e4943c2d661d18b6d99712de0c3bcef8897c60a43c19faae7e0984ec5#npm:13.5.0"],\
@@ -12220,6 +12232,25 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/lines-and-columns-npm-1.2.4-d6c7cc5799-0c37f9f7fa.zip/node_modules/lines-and-columns/",\
           "packageDependencies": [\
             ["lines-and-columns", "npm:1.2.4"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lit-element", [\
+        ["npm:2.5.1", {\
+          "packageLocation": "./.yarn/cache/lit-element-npm-2.5.1-7fccfb6b01-c4f45d0cc8.zip/node_modules/lit-element/",\
+          "packageDependencies": [\
+            ["lit-element", "npm:2.5.1"],\
+            ["lit-html", "npm:1.4.1"]\
+          ],\
+          "linkType": "HARD"\
+        }]\
+      ]],\
+      ["lit-html", [\
+        ["npm:1.4.1", {\
+          "packageLocation": "./.yarn/cache/lit-html-npm-1.4.1-4c175266aa-6e1bb335cd.zip/node_modules/lit-html/",\
+          "packageDependencies": [\
+            ["lit-html", "npm:1.4.1"]\
           ],\
           "linkType": "HARD"\
         }]\

@@ -1,6 +1,7 @@
 {
-  "short_name": "Bonos",
   "name": "Bonos",
+  "short_name": "Bonos",
+  "description": "A circular credit system",
   "icons": [
     {
       "src": "favicon.ico",
