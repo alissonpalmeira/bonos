@@ -3,7 +3,7 @@ import { Box, Button, Card, Image, Text } from 'grommet';
 import { useAuth } from 'services/auth';
 import Logo from 'assets/images/logo.png';
 
-export const Account = () => {
+const Account = () => {
     const { signIn, signUp } = useAuth();
 
     return (
@@ -39,3 +39,5 @@ export const Account = () => {
         </Box>
     );
 }
+
+export default Account;

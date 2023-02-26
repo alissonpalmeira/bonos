@@ -3,7 +3,7 @@ import { Box, Button, Card, Heading, Image, Text } from 'grommet';
 import { useNavigate } from 'react-location';
 import Logo from 'assets/images/logo.png';
 
-export const Error = () => {
+const Error = () => {
     const navigate = useNavigate();
     return (
         <Card>
@@ -28,3 +28,5 @@ export const Error = () => {
         </Card>
     );
 }
+
+export default Error;

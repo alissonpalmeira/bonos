@@ -1,11 +1,11 @@
-import React, { useRef } from 'react';
+import React, { Suspense, useRef } from 'react';
 import { AddCircle } from 'grommet-icons';
 import { Box, Layer, Text } from 'grommet';
 import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
 import { TitleBar, Wish } from 'components/molecules';
 import { useBonos } from 'services/business';
 
-export const Wishlist = () => {
+const Wishlist = () => {
     const { setCurrentWish, resetCurrentWish } = useBonos();
     const { data: { wishlist } } = useMatch();
     const navigate = useNavigate();
@@ -33,13 +33,15 @@ export const Wishlist = () => {
                 responsive={false}
                 target={ref.current}
             >
-                <Outlet />
+                <Suspense>
+                    <Outlet />
+                </Suspense>
             </Layer>
         )
     }
 
     return(
-        <Box fill gap='small' ref={ref}>
+        <Box fill gap='medium' ref={ref}>
             <TitleBar
                 title='My Wishlist'
                 icon={<AddCircle />}
@@ -74,3 +76,5 @@ export const Wishlist = () => {
         </Box>
     )
 }
+
+export default Wishlist;

@@ -4,7 +4,7 @@ import { Outlet, useNavigate } from 'react-location';
 import { useAuth, AuthState } from 'services/auth';
 import { useBonos } from 'services/business';
 
-export const Main = () => {
+const Main = () => {
     const { status } = useAuth();
     const { initialized } = useBonos();
     const navigate = useNavigate();
@@ -46,3 +46,5 @@ export const Main = () => {
         </Box>
     )
 }
+
+export default Main;

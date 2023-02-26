@@ -7,7 +7,7 @@ import { isEqual } from 'lodash';
 import { useBonos } from 'services/business';
 import { useNavigate } from 'react-location';
 
-export const WishUpsert = ({ ...rest }) => {
+const WishUpsert = ({ ...rest }) => {
     const { currentWish, resetCurrentWish, upsertWish } = useBonos();
     const [ value, setValue ] = useState(currentWish);
     const [ changed, setChanged ] = useState(false);
@@ -50,13 +50,12 @@ export const WishUpsert = ({ ...rest }) => {
                         <FormField
                             label='Issuer Address'
                             name='issuer'
-                            // validate={{
-                            //     regexp: /^.{0,40}$/,
-                            //     message: 'error message',
-                            //     status: 'error'
-                            // }}
                         >
-                            <TextInput disabled={processing} name='issuer' placeholder='0x0...' size='medium' />
+                            <TextInput
+                                disabled={processing || currentWish.issuer}
+                                name='issuer'
+                                placeholder='0x0...' size='medium'
+                            />
                         </FormField>
 
                         <AmountInputField
@@ -87,3 +86,5 @@ export const WishUpsert = ({ ...rest }) => {
         </Box>
     )
 }
+
+export default WishUpsert;

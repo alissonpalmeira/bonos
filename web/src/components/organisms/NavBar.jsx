@@ -4,7 +4,7 @@ import { FavoriteEmptyIcon, GiftcardIcon, ProfileIcon } from 'components/atoms';
 import { useMatchRoute, useNavigate } from 'react-location';
 import { slugify } from "services/utils";
 
-export const NavBar = ({ paths, ...rest }) => {
+const NavBar = ({ paths, ...rest }) => {
     const matchRoute = useMatchRoute();
     const navigate = useNavigate();
 
@@ -64,3 +64,5 @@ export const NavBar = ({ paths, ...rest }) => {
         </Box>
     )
 }
+
+export default NavBar;

@@ -4,7 +4,7 @@ import { Pending } from 'components/molecules';
 import { useAuth } from 'services/auth';
 import { useBonos } from 'services/business';
 
-export const Initialize = () => {
+const Initialize = () => {
     const { signOut } = useAuth();
     const { initializeAccount, initializing } = useBonos();
 
@@ -45,3 +45,5 @@ export const Initialize = () => {
         </Box>
     )
 }
+
+export default Initialize;

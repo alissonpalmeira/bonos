@@ -1,15 +1,15 @@
 import React, { useRef } from 'react';
-import { Box, Button, Text } from 'grommet';
+import { Box, Button } from 'grommet';
 import { Edit } from 'grommet-icons';
 import { ProfileBasicInfo, TitleBar } from 'components/molecules';
 import { useAuth } from 'services/auth';
 
-export const Profile = () => {
+const Profile = () => {
     const { user, signOut } = useAuth();
     const ref = useRef();
 
     return(
-        <Box fill gap='small' ref={ref}>
+        <Box fill gap='medium' ref={ref}>
             <TitleBar
                 title='My Profile'
                 icon={<Edit />}
@@ -35,3 +35,5 @@ export const Profile = () => {
         </Box>
     )
 }
+
+export default Profile;

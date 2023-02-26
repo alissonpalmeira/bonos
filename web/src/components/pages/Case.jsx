@@ -4,7 +4,7 @@ import { NavBar } from 'components/organisms';
 import { Outlet, useMatchRoute, useNavigate } from 'react-location';
 import { slugify } from 'services/utils';
 
-export const Case = ({ paths }) => {
+const Case = ({ paths }) => {
     const matchRoute = useMatchRoute();
     const navigate = useNavigate();
 
@@ -24,3 +24,5 @@ export const Case = ({ paths }) => {
         </Box>
     )
 }
+
+export default Case;

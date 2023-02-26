@@ -7,7 +7,7 @@ import { isEqual } from 'lodash';
 import { useBonos } from 'services/business';
 import { useNavigate } from 'react-location';
 
-export const CreditRedeem = ({ ...rest }) => {
+const CreditRedeem = ({ ...rest }) => {
     const { currentCredit, resetCurrentCredit, redeemCredit } = useBonos();
     const [ value, setValue ] = useState({ ...currentCredit, amount: 0 });
     const [ balance, setBalance ] = useState(currentCredit.amount);
@@ -81,3 +81,5 @@ export const CreditRedeem = ({ ...rest }) => {
         </Box>
     )
 }
+
+export default CreditRedeem;

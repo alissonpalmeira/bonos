@@ -1,8 +1,8 @@
-import { Account } from './Account';
-import { Case } from './Case';
-import { Initialize } from './Initialize';
-import { Error } from './Error';
-import { Main } from './Main';
+import Account from './Account';
+import Case from './Case';
+import Error from './Error';
+import Initialize from './Initialize';
+import Main from './Main';
 
 export {
     Account,

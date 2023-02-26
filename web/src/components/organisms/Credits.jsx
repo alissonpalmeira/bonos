@@ -4,7 +4,7 @@ import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
 import { TitleBar, Credit } from 'components/molecules';
 import { useBonos } from 'services/business';
 
-export const Credits = () => {
+const Credits = () => {
     const { setCurrentCredit, resetCurrentCredit } = useBonos();
     const { data: { credits } } = useMatch();
     const navigate = useNavigate();
@@ -38,7 +38,7 @@ export const Credits = () => {
     }
 
     return(
-        <Box fill gap='small' ref={ref}>
+        <Box fill gap='medium' ref={ref}>
             <TitleBar
                 title='My Credits'
             />
@@ -68,3 +68,5 @@ export const Credits = () => {
         </Box>
     )
 }
+
+export default Credits;
