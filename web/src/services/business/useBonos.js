@@ -14,12 +14,11 @@ export const useBonos = () => {
     }
 
     const initializeAccount = async () => {
+        setInitializing(true);
         try {
-            setInitializing(true);
             const txId = await Mutations().initializeAccount();
             await fcl.tx(txId).onceSealed();
             await checkIsInitialized(user.addr);
-            setInitializing(false);
         } catch (error) {
             console.error(error);
             setError({
@@ -27,6 +26,7 @@ export const useBonos = () => {
                 message: 'An error occurred when initializing account storage on Flow Blockchain',
             });
         }
+        setInitializing(false);
     }
 
     const redeemCredit = async (amount, issuer) => {
