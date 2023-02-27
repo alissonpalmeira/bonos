@@ -33,7 +33,6 @@ export const BonosProvider = ({ children }) => {
         } else {
             showTestWarning = true;
         }    
-        console.log(showTestWarning);
         setState(state => ({ ...state, showTestWarning: showTestWarning }));
     }, [user]);
 
