@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { AmountInputField } from 'components/atoms';
 import { Box, Button, Form, Spinner, Text } from 'grommet';
 import { Credit, TitleBar } from 'components/molecules';
-import { Checkmark, LinkPrevious } from 'grommet-icons';
+import { Gift, LinkPrevious } from 'grommet-icons';
 import { isEqual } from 'lodash';
 import { useBonos } from 'services/business';
 import { useNavigate } from 'react-location';
@@ -20,7 +20,7 @@ const CreditRedeem = ({ ...rest }) => {
     useEffect(() => {
         setChanged(!isEqual(currentCredit, value));
         let _balance = parseInt(currentCredit.amount) - value.amount*100;
-        setBalance(_balance < 0 ? 0 : _balance);
+        setBalance(_balance);
     }, [currentCredit, value]);
 
     const close = () => {
@@ -51,7 +51,7 @@ const CreditRedeem = ({ ...rest }) => {
 
                     <Credit 
                         info={{ alias: currentCredit.issuer }}
-                        amount={balance}
+                        amount={currentCredit.amount}
                     />
 
                     <AmountInputField
@@ -67,10 +67,10 @@ const CreditRedeem = ({ ...rest }) => {
                     <Box fill='horizontal' flex={false} gap='xsmall'>
                         <Button
                             color='primary'
-                            disabled={!changed || processing || !value.amount || value.amount*100 > parseInt(currentCredit.amount)}
+                            disabled={!changed || processing || !value.amount || balance<0 }
                             fill='horizontal'
-                            icon={<Checkmark size='medium'/>}
-                            label='Confirm'
+                            icon={<Gift size='medium'/>}
+                            label='Redeem'
                             primary
                             size='small'
                             type='submit'

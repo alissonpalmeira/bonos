@@ -13,8 +13,6 @@ const Case = ({ paths }) => {
     const navigate = useNavigate();
     const ref = useRef();
 
-    console.log(showTestWarning, showWarning);
-
     useEffect(() => {
         if (!matchRoute({to: '/case/*'})) {
             navigate({ to: `/case/${slugify(paths[0])}` })

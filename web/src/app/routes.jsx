@@ -1,4 +1,4 @@
-import React, { Suspense, lazy } from 'react';
+import React, { lazy } from 'react';
 import { Queries } from 'services/data';
 
 const Account = lazy(() => import('components/pages/Account'));
@@ -64,6 +64,9 @@ export const routes = [
                     {
                         path: 'profile',
                         element: <Profile />,
+                        loader:  async () => ({
+                            availableBalance: await Queries().getAvailableBalance(),
+                        }),
                     },
                 ]
             },

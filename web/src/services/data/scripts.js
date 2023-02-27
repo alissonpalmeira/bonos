@@ -1,4 +1,13 @@
 
+export const GET_AVAILABLE_BALANCE = `
+import Bonos from 0xBonos
+
+pub fun main(account: Address): UFix64 {
+    let case = Bonos.borrowCase()
+    return case.getBalanceByIssuer(issuer: account)
+}
+`;
+
 export const GET_CREDITS = `
 import Bonos from 0xBonos
 

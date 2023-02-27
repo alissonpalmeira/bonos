@@ -3,6 +3,16 @@ import * as scripts from './scripts';
 
 export const Queries = () => {
 
+    const getAvailableBalance = async () => {
+        const user = await fcl.currentUser.snapshot();
+        const res = await fcl.query({
+            cadence: scripts.GET_AVAILABLE_BALANCE,
+            args: (arg, t) => [arg(user.addr, t.Address)],
+        });
+        // console.log(res);
+        return res;
+    }
+
     const checkIsInitialized = async (address) => {
         const res = await fcl.query({
             cadence: scripts.IS_INITIALIZED,
@@ -39,6 +49,7 @@ export const Queries = () => {
 
     return {
         checkIsInitialized,
+        getAvailableBalance,
         getCredits,
         getWishlist,
     }

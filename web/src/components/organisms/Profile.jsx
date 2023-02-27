@@ -1,19 +1,23 @@
-import React, { useRef } from 'react';
-import { Box, Button } from 'grommet';
+import React from 'react';
+import { Amount } from 'components/atoms';
+import { Box, Button, Text } from 'grommet';
 import { Edit } from 'grommet-icons';
 import { ProfileBasicInfo, TitleBar } from 'components/molecules';
 import { useAuth } from 'services/auth';
+import { useMatch } from 'react-location';
 
 const Profile = () => {
     const { user, signOut } = useAuth();
-    const ref = useRef();
+    const { data: { availableBalance } } = useMatch();
+
+    // console.log(availableBalance);
 
     return(
-        <Box fill gap='medium' ref={ref}>
+        <Box fill gap='medium'>
             <TitleBar
                 title='My Profile'
                 icon={<Edit />}
-                // onClick={() => navigate({ to: 'insert' })}
+                // onClick={() => {}}
             />
 
             <Box fill gap='medium'>
@@ -23,9 +27,23 @@ const Profile = () => {
                     // picture={}
                 />
 
+                <Box
+                        border={{size: 'small'}}
+                        direction='row'
+                        fill='horizontal'
+                        flex={false}
+                        gap='small'
+                        pad='xsmall'
+                        round='small'
+                    >
+                        <Box align='center' fill justify='center'>
+                            <Text size='small'>Balance Available for Exchange</Text>
+                            <Amount prefix='USD' size='large' weight='bold'>{50*100}</Amount>
+                        </Box>
+                </Box>
+            
                 <Button
                     color='primary'
-                    // fill='horizontal'
                     label='Sign Out'
                     onClick={signOut}
                     primary
