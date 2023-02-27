@@ -11,6 +11,8 @@ export const BonosProvider = ({ children }) => {
         initializing: false,
         currentCredit: defaultCredit,
         currentWish: defaultWish,
+        error: null,
+        success: null,
     });
     const { user } = useAuth();
 

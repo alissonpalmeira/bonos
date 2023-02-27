@@ -1,5 +1,5 @@
 import React, { useContext, useEffect }  from 'react';
-import { Box, ResponsiveContext } from 'grommet';
+import { Box, Notification, ResponsiveContext } from 'grommet';
 import { Outlet, useNavigate } from 'react-location';
 import { useAuth, AuthState } from 'services/auth';
 import { useBonos } from 'services/business';
@@ -43,6 +43,26 @@ const Main = () => {
             >
                 <Outlet />
             </Box>  
+
+            { success && (
+                <Notification
+                    toast
+                    status='normal'
+                    title={success.name}
+                    message={success.message}
+                    onClose={() => setSuccess(null)}
+                />
+            )}
+
+            { error && (
+                <Notification
+                    toast
+                    status='critical'
+                    title={error.name}
+                    message={error.message}
+                    onClose={() => setError(null)}
+                />
+            )}
         </Box>
     )
 }

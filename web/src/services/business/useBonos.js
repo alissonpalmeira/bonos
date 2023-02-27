@@ -22,6 +22,10 @@ export const useBonos = () => {
             setInitializing(false);
         } catch (error) {
             console.error(error);
+            setError({
+                name: 'Initialization failed',
+                message: 'An error occurred when initializing account storage on Flow Blockchain',
+            });
         }
     }
 
@@ -29,8 +33,16 @@ export const useBonos = () => {
         try {
             const txId = await Mutations().redeemCredit(amount, issuer);
             await fcl.tx(txId).onceSealed();
+            setSuccess({
+                name: 'Redemption successful',
+                message: `You redeemed USD ${amount} from ${issuer}`,
+            });
         } catch (error) {
             console.error(error);
+            setError({
+                name: 'Redeem failed',
+                message: `An error occurred when redeeming credits at ${issuer}`,
+            });
         }
     }
 
@@ -50,9 +62,17 @@ export const useBonos = () => {
         setState(state => ({ ...state, currentWish: { amount: amount, issuer: issuer} }));
     }
 
+    const setError = (error) => {
+        setState(state => ({ ...state, error: error }));
+    };
+
     const setInitializing = (value) => {
         setState(state => ({ ...state, initializing: value }));
-    }
+    }    
+
+    const setSuccess = (success) => {
+        setState(state => ({ ...state, success: success }));
+    };
 
     const upsertWish = async (amount, issuer) => {
         try {
@@ -60,6 +80,10 @@ export const useBonos = () => {
             await fcl.tx(txId).onceSealed();
         } catch (error) {
             console.error(error);
+            setError({
+                name: 'Add wish failed',
+                message: `An error occurred when adding credit wish to ${issuer}`,
+            });
         }
     }
 
@@ -68,12 +92,16 @@ export const useBonos = () => {
         currentWish: state.currentWish,
         initialized: state.initialized,
         initializing: state.initializing,
+        error: state.error,
+        success: state.success,
         initializeAccount,
         redeemCredit,
         resetCurrentCredit,
         resetCurrentWish,
         setCurrentCredit,
         setCurrentWish,
+        setError,
+        setSuccess,
         upsertWish,
     }
 };
