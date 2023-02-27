@@ -74,6 +74,10 @@ export const useBonos = () => {
         setState(state => ({ ...state, success: success }));
     };
 
+    const setShowTestWarning = (value) => {
+        setState(state => ({ ...state, showTestWarning: value }));
+    };
+
     const upsertWish = async (amount, issuer) => {
         try {
             const txId = await Mutations().upsertWish(amount, issuer);
@@ -94,6 +98,7 @@ export const useBonos = () => {
         initializing: state.initializing,
         error: state.error,
         success: state.success,
+        showTestWarning: state.showTestWarning,
         initializeAccount,
         redeemCredit,
         resetCurrentCredit,
@@ -102,6 +107,7 @@ export const useBonos = () => {
         setCurrentWish,
         setError,
         setSuccess,
+        setShowTestWarning,
         upsertWish,
     }
 };

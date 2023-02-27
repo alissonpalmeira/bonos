@@ -6,7 +6,7 @@ import { useBonos } from 'services/business';
 
 const Main = () => {
     const { status } = useAuth();
-    const { initialized } = useBonos();
+    const { error, success, initialized, setSuccess, setError } = useBonos();
     const navigate = useNavigate();
     const screenSize = useContext(ResponsiveContext);
 

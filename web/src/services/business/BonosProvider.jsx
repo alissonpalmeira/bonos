@@ -13,6 +13,7 @@ export const BonosProvider = ({ children }) => {
         currentWish: defaultWish,
         error: null,
         success: null,
+        showTestWarning: true,
     });
     const { user } = useAuth();
 
@@ -23,6 +24,23 @@ export const BonosProvider = ({ children }) => {
         }
         if (user.addr) checkInit();
     }, [user]);
+
+    useEffect(() => {
+        if (!user.addr) return;
+        let showTestWarning = localStorage.getItem(user.addr);
+        if (showTestWarning) {
+            showTestWarning = showTestWarning.toLowerCase() === 'true' ? true : false;
+        } else {
+            showTestWarning = true;
+        }    
+        console.log(showTestWarning);
+        setState(state => ({ ...state, showTestWarning: showTestWarning }));
+    }, [user]);
+
+    useEffect(() => {
+        if (!user.addr) return;
+        localStorage.setItem(user.addr, state.showTestWarning.toString());
+    }, [user, state.showTestWarning]);
 
     return (
         <BonosContext.Provider value={[ state, setState ]}>
