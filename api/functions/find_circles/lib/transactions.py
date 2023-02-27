@@ -1,9 +1,9 @@
 import os
 
-CONTRACT_ADDRESS = os.environ['CONTRACT_ADDRESS']
+ACCOUNT_ADDRESS = os.environ['ACCOUNT_ADDRESS']
 
 EXCHANGE = f"""
-import Bonos from {CONTRACT_ADDRESS}
+import Bonos from {ACCOUNT_ADDRESS}
 transaction() {{
     prepare(account: AuthAccount) {{
         let admin = account.borrow<&Bonos.Admin>(from: Bonos.AdminStoragePath)

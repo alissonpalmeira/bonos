@@ -1,7 +1,7 @@
 AWSTemplateFormatVersion: "2010-09-09"
 Transform: AWS::Serverless-2016-10-31
 Description: >
-  Template SAM para o backend do Sistema Bonos
+  Template SAM for Bonos backend
 #######################################################################################################
 #
 #  Parameters
@@ -13,22 +13,23 @@ Parameters:
     Default: dev
     AllowedValues:
       - dev
+      - stage
       - prod
-  flow_host:
+  FlowAccessNodeHost:
     Type: String
-  flow_port:
+    Default: access.devnet.nodes.onflow.org
+  FlowAccessNodePort:
     Type: String
-  contract_address:
-    Type: String
-  private_key:
+    Default: 9000
+  ServiceAccountAddress:
     Type: String
     NoEcho: true
-  DayFindCircleSchedule:
+  PrivateKey:
     Type: String
-    Default: cron(0/10 11-01 ? * * *)
-  EveningFindCircleSchedule:
+    NoEcho: true
+  FindCircleSchedule:
     Type: String
-    Default: cron(15,45 01-11 ? * * *)
+    Default: rate(1 minute)
 #######################################################################################################
 #
 #  Globals
@@ -52,57 +53,20 @@ Resources:
       CodeUri: functions/find_circles
       Environment:
         Variables:
-          HOST: !Ref flow_host
-          PORT: !Ref flow_port
-          CONTRACT_ADDRESS: !Ref contract_address
-          PRIVATE_KEY: !Ref private_key
+          HOST: !Ref FlowAccessNodeHost
+          PORT: !Ref FlowAccessNodePort
+          ACCOUNT_ADDRESS: !Ref ServiceAccountAddress
+          PRIVATE_KEY: !Ref PrivateKey
       Events:
-        DaySchedule:
+        FindCirculesScheduleEvent:
           Type: Schedule
           Properties:
-            Description: Day schedule for finding circles
+            Description: Schedule for finding circles
             Enabled: true
-            Schedule: !Ref DayFindCircleSchedule
-        EveningSchedule:
-          Type: Schedule
-          Properties:
-            Description: Evening schedule for finding circles
-            Enabled: true
-            Schedule: !Ref EveningFindCircleSchedule      
-#######################################################################################################
-#
-#  Resources / APIs
-#
-#######################################################################################################
-
-#######################################################################################################
-#
-#  Resources / SQS
-#
-#######################################################################################################
-
-#######################################################################################################
-#
-#  Resources / S3 Buckets
-#
-#######################################################################################################
-
-#######################################################################################################
-#
-#  Resources / Database
-#
-#######################################################################################################
-
-#######################################################################################################
-#
-#  Resources / User Pool
-#
-#######################################################################################################
- 
+            Schedule: !Ref FindCircleSchedule    
 #######################################################################################################
 #
 #  Outputs
 #
 #######################################################################################################
-Outputs:
-
+#Outputs:

@@ -13,7 +13,7 @@ from string import Template
 
 HOST = os.environ['HOST']
 PORT = os.environ['PORT']
-CONTRACT_ADDRESS = os.environ['CONTRACT_ADDRESS']
+ACCOUNT_ADDRESS = os.environ['ACCOUNT_ADDRESS']
 PRIVATE_KEY = os.environ['PRIVATE_KEY']
 
 
@@ -62,7 +62,7 @@ async def execute_transaction(transaction_script, arguments=[]):
     async with flow_client(
             host=HOST, port=PORT
     ) as client:
-        address = Address.from_hex(CONTRACT_ADDRESS[2:])
+        address = Address.from_hex(ACCOUNT_ADDRESS[2:])
         account = await client.get_account(address=address.bytes)
         latest_block = await client.get_latest_block()
         signer = InMemorySigner(
