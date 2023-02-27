@@ -38,7 +38,7 @@ const Profile = () => {
                     >
                         <Box align='center' fill justify='center'>
                             <Text size='small'>Balance Available for Exchange</Text>
-                            <Amount prefix='USD' size='large' weight='bold'>{50*100}</Amount>
+                            <Amount prefix='USD' size='large' weight='bold'>{availableBalance}</Amount>
                         </Box>
                 </Box>
             
