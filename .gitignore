@@ -1,6 +1,7 @@
 
 # AWS sam build
 .aws-sam
+samconfig.toml
 
 #flow
 flow.json

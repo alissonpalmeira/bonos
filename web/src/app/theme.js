@@ -39,4 +39,12 @@ export const theme = {
             pad: 'medium',
         },
     },
+    notification: {
+        container: {
+            background: 'light-1',
+        },
+        close: {
+            color: 'brand',
+        },
+    },
 };

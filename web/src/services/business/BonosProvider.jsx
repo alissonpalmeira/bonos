@@ -14,32 +14,47 @@ export const BonosProvider = ({ children }) => {
         error: null,
         success: null,
         showTestWarning: true,
+        warned: false,
     });
     const { user } = useAuth();
 
     useEffect(() => {
-        const checkInit = async () => {
-            const initialized = await Queries().checkIsInitialized(user.addr);
-            setState(state => ({ ...state, initialized: initialized }));
-        }
-        if (user.addr) checkInit();
-    }, [user]);
+        if (!user.addr) return;
+        if (state.initializing) return;
+        checkIsInitialized(user.addr);
+    }, [user, state.initializing]);
 
     useEffect(() => {
-        if (!user.addr) return;
-        let showTestWarning = localStorage.getItem(user.addr);
-        if (showTestWarning) {
-            showTestWarning = showTestWarning.toLowerCase() === 'true' ? true : false;
+        if (user.addr) {
+            checkShowTestWarning(user.addr);
         } else {
-            showTestWarning = true;
-        }    
-        setState(state => ({ ...state, showTestWarning: showTestWarning }));
+            setState(state => ({
+                ...state,
+                showTestWarning: true,
+                warned: false,
+            }));
+        }
     }, [user]);
 
     useEffect(() => {
         if (!user.addr) return;
         localStorage.setItem(user.addr, state.showTestWarning.toString());
     }, [user, state.showTestWarning]);
+
+    const checkIsInitialized = async (address) => {
+        const initialized = await Queries().checkIsInitialized(address);
+        setState(state => ({...state, initialized: initialized }));
+    }
+
+    const checkShowTestWarning = async (address) => {
+        let showTestWarning = localStorage.getItem(address);
+        if (showTestWarning) {
+            showTestWarning = showTestWarning.toLowerCase() === 'true' ? true : false;
+        } else {
+            showTestWarning = true;
+        }    
+        setState(state => ({ ...state, showTestWarning: showTestWarning }));
+    };
 
     return (
         <BonosContext.Provider value={[ state, setState ]}>

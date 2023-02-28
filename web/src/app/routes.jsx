@@ -5,6 +5,7 @@ const Account = lazy(() => import('components/pages/Account'));
 const Case = lazy(() => import('components/pages/Case'));
 const Initialize = lazy(() => import('components/pages/Initialize'));
 const Main = lazy(() => import('components/pages/Main'));
+const TestWarning = lazy(() => import('components/pages/TestWarning'));
 
 const Credits = lazy(() => import('components/organisms/Credits'));
 const CreditRedeem = lazy(() => import('components/organisms/CreditRedeem'));
@@ -22,6 +23,10 @@ export const routes = [
             {
                 path: 'account',
                 element: <Account />
+            },
+            {
+                path: 'warning',
+                element: <TestWarning />,
             },
             {
                 path: 'initialize',

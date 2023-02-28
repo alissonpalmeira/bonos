@@ -1,32 +1,26 @@
 import { useCallback, useContext } from 'react';
 import { BonosContext } from '.';
-import { useAuth } from 'services/auth';
-import { Mutations, Queries, defaultCredit, defaultWish } from 'services/data';
+import { Mutations, defaultCredit, defaultWish } from 'services/data';
 import * as fcl from '@onflow/fcl';
 
 export const useBonos = () => {
     const [ state, setState ] = useContext(BonosContext);
-    const { user } = useAuth();
-
-    const checkIsInitialized = async (address) => {
-        const initialized = await Queries().checkIsInitialized(address);
-        setState(state => ({...state, initialized: initialized }));
-    }
 
     const initializeAccount = async () => {
         setInitializing(true);
         try {
             const txId = await Mutations().initializeAccount();
             await fcl.tx(txId).onceSealed();
-            await checkIsInitialized(user.addr);
+            // await checkIsInitialized(user.addr);
+            setInitializing(false);
         } catch (error) {
             console.error(error);
+            setInitializing(false);
             setError({
                 name: 'Initialization failed',
                 message: 'An error occurred when initializing account storage on Flow Blockchain',
             });
         }
-        setInitializing(false);
     }
 
     const redeemCredit = async (amount, issuer) => {
@@ -78,6 +72,10 @@ export const useBonos = () => {
         setState(state => ({ ...state, showTestWarning: value }));
     };
 
+    const setWarned = (value) => {
+        setState(state => ({ ...state, warned: value }));
+    };
+
     const upsertWish = async (amount, issuer) => {
         try {
             const txId = await Mutations().upsertWish(amount, issuer);
@@ -99,6 +97,7 @@ export const useBonos = () => {
         error: state.error,
         success: state.success,
         showTestWarning: state.showTestWarning,
+        warned: state.warned,
         initializeAccount,
         redeemCredit,
         resetCurrentCredit,
@@ -108,6 +107,7 @@ export const useBonos = () => {
         setError,
         setSuccess,
         setShowTestWarning,
+        setWarned,
         upsertWish,
     }
 };

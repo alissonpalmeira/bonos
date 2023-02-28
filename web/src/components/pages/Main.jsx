@@ -6,24 +6,27 @@ import { useBonos } from 'services/business';
 
 const Main = () => {
     const { status } = useAuth();
-    const { error, success, initialized, setSuccess, setError } = useBonos();
+    const { error, success, initialized, showTestWarning, warned, setSuccess, setError } = useBonos();
     const navigate = useNavigate();
     const screenSize = useContext(ResponsiveContext);
 
     // console.log(user);
-    // console.log(initialized);
+    // console.log('initialized', initialized);
     
     useEffect(() => {
         if (status === AuthState.SIGNED_OUT) {
             navigate({ to: 'account', replace: true });
         } else if (status === AuthState.SIGNED_IN) {
-            if (initialized) {
-                navigate({ to: 'case', replace: true });
-            } else {
+            if (showTestWarning && !warned) {
+                navigate({ to: 'warning', replace: true });
+            }
+            else if (!initialized) {
                 navigate({ to: 'initialize', replace: true });
+            } else {
+                navigate({ to: 'case', replace: true });
             }
         }
-    }, [status, initialized, navigate]);
+    }, [status, showTestWarning, warned, initialized, navigate]);
 
     return(
         <Box

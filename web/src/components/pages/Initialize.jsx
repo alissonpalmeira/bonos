@@ -5,14 +5,16 @@ import { useAuth } from 'services/auth';
 import { useBonos } from 'services/business';
 
 const Initialize = () => {
-    const { signOut } = useAuth();
     const { initializeAccount, initializing } = useBonos();
+    const { signOut } = useAuth();
 
     return(
         <Box background='brand' fill justify='center' pad='medium'>
             <Card>
                 <Text size='xxlarge'>Let's begin!</Text>
+
                 <Text textAlign='center'>Your account has not been initialized yet</Text>
+
                 <Button
                     color='primary'
                     fill='horizontal'
