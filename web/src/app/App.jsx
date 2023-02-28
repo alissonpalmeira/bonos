@@ -18,7 +18,7 @@ const App = () => {
                     routes={routes}
                     location={location}
                     defaultErrorElement={<Error />}
-                    defaultLoaderMaxAge={60000}
+                    // defaultLoaderMaxAge={60000}
                     defaultPendingElement={<Pending />}
                     defaultPendingMs={1000}
                     defaultPendingMinMs={1000}
