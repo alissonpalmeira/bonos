@@ -21,15 +21,15 @@ pub contract Bonos {
         self.initialBalance = 0.0
         self.issuanceLimit = 100.0
 
-        self.CaseStoragePath = StoragePath(identifier: "bonosCase") ?? panic("Could not set storage path")
-        self.CasePrivatePath = PrivatePath(identifier: "bonosCase") ?? panic("Could not set private path")
-        self.CasePublicPath = PublicPath(identifier: "bonosCase") ?? panic("Could not set public path")
+        self.CaseStoragePath = StoragePath(identifier: "theBonosCase") ?? panic("Could not set storage path")
+        self.CasePrivatePath = PrivatePath(identifier: "theBonosCase") ?? panic("Could not set private path")
+        self.CasePublicPath = PublicPath(identifier: "theBonosCase") ?? panic("Could not set public path")
 
-        self.WishlistStoragePath = StoragePath(identifier: "bonosWishlist") ?? panic("Could not set storage path")
-        self.WishlistPrivatePath = PrivatePath(identifier: "bonosWishlist") ?? panic("Could not set private path")
-        self.WishlistPublicPath = PublicPath(identifier: "bonosWishlist") ?? panic("Could not set public path")
+        self.WishlistStoragePath = StoragePath(identifier: "theBonosWishlist") ?? panic("Could not set storage path")
+        self.WishlistPrivatePath = PrivatePath(identifier: "theBonosWishlist") ?? panic("Could not set private path")
+        self.WishlistPublicPath = PublicPath(identifier: "theBonosWishlist") ?? panic("Could not set public path")
 
-        self.AdminStoragePath = StoragePath(identifier: "bonosAdmin") ?? panic("Could not set storage path")
+        self.AdminStoragePath = StoragePath(identifier: "theBonosAdmin") ?? panic("Could not set storage path")
 
         // Create the contract account Case
         self.account.save(<- Bonos.createCase(account: self.account), to: Bonos.CaseStoragePath)
@@ -211,29 +211,29 @@ pub contract Bonos {
                     panic("Insufficient balance from ".concat(provider.toString()))
                 }
                 
-                let receivertWishes = &wishlist.wishes[receiver]! as &{Address: UFix64}
-                if receivertWishes == nil {
+                let receiverWishes = &wishlist.wishes[receiver]! as &{Address: UFix64}
+                if receiverWishes == nil {
                     panic("No wish from ".concat(receiver.toString()))
                 }
 
-                let receiverWishToProvider = receivertWishes[provider] ?? 0.0
+                let receiverWishToProvider = receiverWishes[provider] ?? 0.0
                 if receiverWishToProvider - amount < 0.0 {
                     panic("No wish from ".concat(receiver.toString()))
                 }
 
-                let providerAccount = getAccount(provider)
-                let cap = providerAccount.getCapability<&Case{Receiver}>(Bonos.CasePublicPath)
-                let providerCase = cap.borrow()
+                let receiverAccount = getAccount(receiver)
+                let cap =receiverAccount.getCapability<&Case{Receiver}>(Bonos.CasePublicPath)
+                let receiverCase = cap.borrow()
                     ?? panic("Could not borrow case receiver")
 
                 let tempCase <- contractCase.withdraw(amount: amount, issuer: provider)
-                providerCase.deposit(from: <- tempCase)
+                receiverCase.deposit(from: <- tempCase)
                 
                 if (receiverWishToProvider - amount == 0.0){
-                    receivertWishes.remove(key: provider)
+                    receiverWishes.remove(key: provider)
                 }
                 else{
-                    receivertWishes[provider] = receiverWishToProvider - amount
+                    receiverWishes[provider] = receiverWishToProvider - amount
                 }
                 
                 index = index + 1
