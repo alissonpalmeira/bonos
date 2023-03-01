@@ -1,7 +1,7 @@
 {
   "name": "Bonos",
   "short_name": "Bonos",
-  "description": "A circular credit system",
+  "description": "Bonos was built during Flow Hackathon 2023 as a proof of concept of a circular credit system. It's a Distributed App - running on top of  Flow Blockchain - which has the potential to unlock the flow of goods and services already available in low-income communities through a continuous circulation of credit.",
   "icons": [
     {
       "src": "favicon.ico",
