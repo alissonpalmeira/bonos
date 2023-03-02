@@ -8,8 +8,13 @@ const NavBar = ({ paths, ...rest }) => {
     const matchRoute = useMatchRoute();
     const navigate = useNavigate();
 
-    const isCurrentRoute = (path) => {
-        return matchRoute({to: `/case/${slugify(path)}`, fuzzy: true})
+    const isCurrentRoute = (paths) => {
+        for (let path of paths) {
+            if (matchRoute({to: `/case/${slugify(path)}`, fuzzy: true})) {
+                return true;
+            }
+        }
+        return false;
     }
 
     return (
@@ -25,7 +30,7 @@ const NavBar = ({ paths, ...rest }) => {
                 fill
                 focusIndicator={false}
                 gap='ssmall' 
-                onClick={() => navigate({ to: slugify(paths[0]) })}
+                onClick={() => navigate({ to: slugify(paths[0][0]) })}
             >
                 <GiftcardIcon
                     color={isCurrentRoute(paths[0]) ? 'primary' : 'brand'}
@@ -39,7 +44,7 @@ const NavBar = ({ paths, ...rest }) => {
                 fill
                 focusIndicator={false}
                 gap='ssmall' 
-                onClick={() => navigate({ to: slugify(paths[1]) })}
+                onClick={() => navigate({ to: slugify(paths[1][0]) })}
             >
                 <FavoriteEmptyIcon
                     color={isCurrentRoute(paths[1]) ? 'primary' : 'brand'}
@@ -53,7 +58,7 @@ const NavBar = ({ paths, ...rest }) => {
                 fill
                 focusIndicator={false}
                 gap='ssmall' 
-                onClick={() => navigate({ to: slugify(paths[2]) })}
+                onClick={() => navigate({ to: slugify(paths[2][0]) })}
             >
                 <ProfileIcon
                     color={isCurrentRoute(paths[2]) ? 'primary' : 'brand'}

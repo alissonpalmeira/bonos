@@ -3,7 +3,7 @@ import { Account, Case, Initialize, Main, TestWarning } from 'components/pages';
 import { Credits, CreditRedeem, Profile, Wishlist, WishUpsert } from 'components/organisms';
 import { Queries } from 'services/data';
 
-const paths = [ 'Credits', 'Wishlist', 'Profile' ]
+const paths = [ ['Credits', 'Redeem'], ['Wishlist', 'Add-Wish', 'Edit-Wish'], ['Profile'] ]
 
 export const routes = [
     {
@@ -32,12 +32,6 @@ export const routes = [
                         loader:  async () => ({
                             credits: await Queries().getCredits(),
                         }),
-                        children: [
-                            {
-                                path: 'redeem',
-                                element: <CreditRedeem />,
-                            },
-                        ]
                     },
                     {
                         path: 'wishlist',
@@ -45,16 +39,6 @@ export const routes = [
                         loader:  async () => ({
                             wishlist: await Queries().getWishlist(),
                         }),
-                        children: [
-                            {
-                                path: 'add',
-                                element: <WishUpsert />,
-                            },
-                            {
-                                path: 'edit',
-                                element: <WishUpsert />,
-                            },
-                        ]
                     },
                     {
                         path: 'profile',
@@ -62,6 +46,18 @@ export const routes = [
                         loader:  async () => ({
                             availableBalance: await Queries().getAvailableBalance(),
                         }),
+                    },
+                    {
+                        path: 'add-wish',
+                        element: <WishUpsert />,
+                    },
+                    {
+                        path: 'edit-wish',
+                        element: <WishUpsert />,
+                    },
+                    {
+                        path: 'redeem',
+                        element: <CreditRedeem />,
                     },
                 ]
             },

@@ -1,40 +1,18 @@
 import React, { useRef } from 'react';
-import { Box, Layer, Text } from 'grommet';
-import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
+import { Box, Text } from 'grommet';
+import { useMatch, useNavigate } from 'react-location';
 import { TitleBar, Credit } from 'components/molecules';
 import { useBonos } from 'services/business';
 
 const Credits = () => {
-    const { setCurrentCredit, resetCurrentCredit } = useBonos();
+    const { setCurrentCredit } = useBonos();
     const { data: { credits } } = useMatch();
     const navigate = useNavigate();
     const ref = useRef();
     
-    // console.log(credits);
-
-    const closeCredit = () => {
-        resetCurrentCredit();
-        navigate({ to: '.' });
-    }
-
     const redeemCredit = (amount, issuer) => {
-        setCurrentCredit(parseInt(amount)*100, issuer);
-        navigate({ to: 'redeem' });
-    }
-
-    const renderCredit = () => {
-        return (
-            <Layer
-                animation='fadeIn'
-                full
-                onClickOutside={closeCredit}
-                onEsc={closeCredit}
-                responsive={false}
-                target={ref.current}
-            >
-                <Outlet />
-            </Layer>
-        )
+        setCurrentCredit(amount*100, issuer);
+        navigate({ to: '../redeem' });
     }
 
     return(
@@ -54,17 +32,13 @@ const Credits = () => {
                         <Credit 
                             key={key}
                             info={{ alias: key }}
-                            amount={parseInt(value)*100}
+                            amount={value*100}
                             onEdit={() => redeemCredit(value, key)}
                             onShow={() => redeemCredit(value, key)}
                         />
                     ))}
                 </Box>
             }
-
-            <MatchRoute to='redeem'>
-                { renderCredit() }
-            </MatchRoute>
         </Box>
     )
 }

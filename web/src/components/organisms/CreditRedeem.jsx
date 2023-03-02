@@ -25,7 +25,7 @@ const CreditRedeem = ({ ...rest }) => {
 
     const close = () => {
         resetCurrentCredit();
-        navigate({ to: '..' });
+        navigate({ to: '../credits' });
     }
 
     const submit = async (value) => {

@@ -1,43 +1,19 @@
-import React, { Suspense, useRef } from 'react';
+import React, { useRef } from 'react';
 import { AddCircle } from 'grommet-icons';
-import { Box, Layer, Text } from 'grommet';
-import { MatchRoute, Outlet, useMatch, useNavigate } from 'react-location';
+import { Box, Text } from 'grommet';
+import { useMatch, useNavigate } from 'react-location';
 import { TitleBar, Wish } from 'components/molecules';
 import { useBonos } from 'services/business';
 
 const Wishlist = () => {
-    const { setCurrentWish, resetCurrentWish } = useBonos();
+    const { setCurrentWish } = useBonos();
     const { data: { wishlist } } = useMatch();
     const navigate = useNavigate();
     const ref = useRef();
     
-    // console.log(wishlist);
-
-    const closeWish = () => {
-        resetCurrentWish();
-        navigate({ to: '.' });
-    }
-
     const editWish = (amount, issuer) => {
-        setCurrentWish(parseInt(amount)*100, issuer);
-        navigate({ to: 'edit' });
-    }
-
-    const renderWish = () => {
-        return (
-            <Layer
-                animation='fadeIn'
-                full
-                onClickOutside={closeWish}
-                onEsc={closeWish}
-                responsive={false}
-                target={ref.current}
-            >
-                <Suspense>
-                    <Outlet />
-                </Suspense>
-            </Layer>
-        )
+        setCurrentWish(amount*100, issuer);
+        navigate({ to: '../edit-wish' });
     }
 
     return(
@@ -45,7 +21,7 @@ const Wishlist = () => {
             <TitleBar
                 title='My Wishlist'
                 icon={<AddCircle />}
-                onClick={() => navigate({ to: 'add' })}
+                onClick={() => navigate({ to: '../add-wish' })}
             />
 
             { Object.keys(wishlist).length === 0 ?
@@ -58,21 +34,13 @@ const Wishlist = () => {
                         <Wish 
                             key={key}
                             info={{ alias: key }}
-                            amount={parseInt(value)*100}
+                            amount={value*100}
                             onEdit={() => editWish(value, key)}
                             onShow={() => editWish(value, key)}
                         />
                     ))}
                 </Box>
             }
-
-            <MatchRoute to='add'>
-                { renderWish() }
-            </MatchRoute>
-
-            <MatchRoute to='edit'>
-                { renderWish() }
-            </MatchRoute>
         </Box>
     )
 }

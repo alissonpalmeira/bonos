@@ -22,7 +22,7 @@ const WishUpsert = ({ ...rest }) => {
 
     const close = () => {
         resetCurrentWish();
-        navigate({ to: '..' });
+        navigate({ to: '../wishlist' });
     }
 
     const submit = async (value) => {
